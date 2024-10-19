@@ -1,4 +1,5 @@
 import useAppStore from '../lib/store';
+import Avatar from '../assets/avatar.png';
 
 const PodcastDetailView = () => {
   const { status, togglePlayPause } = useAppStore();
@@ -11,7 +12,7 @@ const PodcastDetailView = () => {
     <section className="absolute flex flex-col items-center justify-center w-full h-full">
       <img
         className={discStyle}
-        src="/avatar.png"
+        src={Avatar}
         alt="podcast cover"
         onClick={togglePlayPause}
         role="button"

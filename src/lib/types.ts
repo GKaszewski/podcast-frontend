@@ -1,5 +1,6 @@
 export type Podcast = {
-  id: number;
+  id: string;
   title: string;
-  audioUrl: string;
+  url: string;
+  created_at: string;
 };

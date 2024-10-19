@@ -11,7 +11,6 @@ interface Store {
   isOverlayVisible: boolean;
   view: 'home' | 'podcast-detail';
 
-  setPodcasts(podcasts: Podcast[]): void;
   setCurrentPodcast(podcast: Podcast | null): void;
   setCurrentTimestamp(timestamp: number | null): void;
   setEndTimestamp(timestamp: number | null): void;
@@ -37,7 +36,6 @@ const useAppStore = create<Store>((set, get) => ({
   isOverlayVisible: false,
   view: 'home',
 
-  setPodcasts: (podcasts) => set({ podcasts }),
   setCurrentPodcast: (currentPodcast) => set({ currentPodcast }),
   setCurrentTimestamp: (currentTimestamp) => set({ currentTimestamp }),
   setEndTimestamp: (endTimestamp) => set({ endTimestamp }),
@@ -54,7 +52,7 @@ const useAppStore = create<Store>((set, get) => ({
       audioElement.play();
       set({ status: 'playing' });
     } else {
-      audioElement.src = currentPodcast.audioUrl;
+      audioElement.src = currentPodcast.url;
       audioElement.play();
       set({ status: 'playing' });
     }

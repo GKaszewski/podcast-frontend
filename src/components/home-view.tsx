@@ -1,38 +1,16 @@
-import { useEffect } from 'react';
-import useAppStore from '../lib/store';
-import { Podcast } from '../lib/types';
 import PodcastList from './podcast-list';
+import Avatar from '../assets/avatar.png';
+import { usePodcasts } from '../lib/hooks/use-podcasts';
 
 const HomeView = () => {
-  const { setPodcasts } = useAppStore();
-  const initialPodcasts: Podcast[] = [
-    {
-      id: 1,
-      title: 'Episode 1',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-    },
-    {
-      id: 2,
-      title: 'Episode 2',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-    },
-    {
-      id: 3,
-      title: 'Episode 3',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
-    },
-  ];
-
-  useEffect(() => {
-    setPodcasts(initialPodcasts);
-  }, []);
+  const { data: podcasts, isFetching } = usePodcasts();
 
   return (
     <>
       <section className="flex items-center gap-2 p-8">
         <img
           className="object-cover object-center w-16 h-16 rounded-full select-none"
-          src="/avatar.png"
+          src={Avatar}
           alt="avatar"
         />
         <h1 className="text-4xl text-white cursor-default hover:cool-text-gradient">
@@ -43,7 +21,8 @@ const HomeView = () => {
         <h2 className="text-2xl text-white cursor-default hover:cool-text-gradient">
           Episodes
         </h2>
-        <PodcastList podcasts={initialPodcasts} />
+        {podcasts && <PodcastList podcasts={podcasts} />}
+        {isFetching && <p className="text-white">Loading podcasts...</p>}
       </section>
     </>
   );
